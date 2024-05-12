@@ -5,6 +5,7 @@
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "lcd.c"
 
 #define NUM_ROWS 4
@@ -38,9 +39,20 @@ void handleButtonPress(char button){
 	if (button == '-'){
 		if (displayedIndex > 0){
 			displayedIndex--;
+			char lastChar = displayedString[displayedIndex];
 			displayedString[displayedIndex] = '\0';  // Delete the last character
 			LCD_Command(0x01);  // Clear the display
 			LCD_String(displayedString);  // Refresh the display
+
+			// Update the number variable
+			if (lastChar == '.'){
+				decimalPlace = 0;
+				} else if (decimalPlace > 0){
+				decimalPlace--;
+				number -= (lastChar - '0') / pow(10, decimalPlace);
+				} else {
+				number = (int)(number / 10);
+			}
 		}
 	}
 	else if (button == '.'){
