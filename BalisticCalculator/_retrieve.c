@@ -3,78 +3,92 @@
 #endif
 
 float GetRange(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage];
+		return sln[10 * (size_t)yardage];
 		} else {
 		return 0;
 	}
 }
 
+
 float GetPath(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 1];
+		return sln[10 * (size_t)yardage + 1];
 		} else {
 		return 0;
 	}
 }
 
 float GetMOA(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 2];
+		return sln[10 * (size_t)yardage + 2];
 		} else {
 		return 0;
 	}
 }
 
 float GetTime(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 3];
+		return sln[10 * (size_t)yardage + 3];
 		} else {
 		return 0;
 	}
 }
 
 float GetWindage(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 4];
+		return sln[10 * (size_t)yardage + 4];
 		} else {
 		return 0;
 	}
 }
 
 float GetWindageMOA(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 5];
-	} else
-	return 0;
+		return sln[10 * (size_t)yardage + 5];
+		} else {
+		return 0;
+	}
 }
 
 float GetVelocity(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 6];
-	} else
-	return 0;
+		return sln[10 * (size_t)yardage + 6];
+		} else {
+		return 0;
+	}
 }
 
 float GetVx(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 7];
-	} else
-	return 0;
+		return sln[10 * (size_t)yardage + 7];
+		} else {
+		return 0;
+	}
 }
 
 float GetVy(float* sln, int yardage) {
-	float size = sln[__BCOMP_MAXRANGE__ * 10 + 1];
+	size_t index = (size_t)__BCOMP_MAXRANGE__ * 10 + 1;
+	float size = sln[index];
 	if (yardage < size) {
-		return sln[10 * yardage + 8];
-	} else
-	return 0;
+		return sln[10 * (size_t)yardage + 8];
+		} else {
+		return 0;
+	}
 }

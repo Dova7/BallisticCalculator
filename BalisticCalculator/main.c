@@ -1,4 +1,4 @@
-#define F_CPU 1000000
+#define F_CPU 8000000
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -22,9 +22,9 @@ uint8_t decimalPlace = 0;  // The current decimal place, 0 means before decimal 
 float values[12] = {0}; // Array to hold ballistic values
 uint8_t current_value = 0; // The current value that the user is entering
 char* value_names[12] = {
-	"Drag Coeff", "Init Velo", "Sight Height", "Shting Angle",
-	"Wind Speed", "Wind Angle", "Zero Range", "yIntercept",
-	"Altitude", "Baromtr", "Temp", "RelatHumid"
+	"DCoeff", "Iv", "SHgt", "SAng",
+	"WSpd", "WAng", "ZRng", "yIn",
+	"Alt", "Bmtr", "T", "RHumid"
 };
 
 // Keypad layout
@@ -120,13 +120,10 @@ void handleButtonPress(char button) {
 			// Perform the ballistic calculations
 			float CorrectedDragCoefficient = AtmCorrect(values[0], values[8], values[9], values[10], values[11]);
 
-			float zeroAngle = ZeroAngle(G1, values[0], values[1], values[2], values[6], values[7]);
+			float zeroAngle = ZeroAngle(1, values[0], values[1], values[2], values[6], values[7]);
 
-			float* solution;
-			int maxRange = SolveNext(G1, CorrectedDragCoefficient, values[1], values[2], values[3], zeroAngle, values[4], values[5], &solution);
-
-			// After using the solution array, free the memory
-			free(solution);
+			float solution[10];
+			int maxRange = SolveNext(1, CorrectedDragCoefficient, values[1], values[2], values[3], zeroAngle, values[4], values[5], solution);			
 
 			// Display the results
 			for (uint8_t i = 0; i <= maxRange; i += 50) {
@@ -185,10 +182,10 @@ int main(void) {
 	LCD_Init();
 	initKeypad();
 
-	LCD_String("Drag Coeff:");
+	LCD_String("DCoeff:");
 
 	while (1) {
 		scanMatrix();
-		_delay_ms(10);
+		_delay_ms(400);
 	}
 }
