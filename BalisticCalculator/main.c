@@ -63,6 +63,7 @@ int buttonPressed(){
 }
 
 void handleButtonPress(char button) {
+	char resultStr[32];
 	if (button == '-') {
 		if (displayedIndex > 0) {
 			displayedIndex--;
@@ -118,10 +119,29 @@ void handleButtonPress(char button) {
 			LCD_String(":");
 			} else if (current_value >= 12) {
 			// Perform the ballistic calculations
+			//float CorrectedDragCoefficient = AtmCorrect(values[0], values[8], values[9], values[10], values[11]);
+			/*float CorrectedDragCoefficient = AtmCorrect(0.5, 0, 29.53, 59, 0.8);
+			float zeroAngle = ZeroAngle(1, CorrectedDragCoefficient, 1100, 1.5, 100, 0);
+			float solution[10];
+			int maxRange = SolveNext(1, CorrectedDragCoefficient, 1100, 1.5, 100, zeroAngle, 0, 0, solution);
+			//float c = 2+0.2;
+			
+			for (uint8_t i = 0; i <= maxRange; i += 50) {
+				float path = GetPath(solution, i);
+				float moa = GetMOA(solution, i);
+				float windage = GetWindage(solution, i);
+				float windageMOA = GetWindageMOA(solution, i);
+				
+				sprintf(resultStr, "Range: %d Path: %.2f", i, path);
+				sprintf(resultStr, "MOA: %.2f Wind: %.2f", moa, windage);
+				sprintf(resultStr, "Windage MOA: %.2f", windageMOA);
+			
+			LCD_Command(0x01); // Clear the display
+			LCD_String(resultStr);
+			}*/
+			
 			float CorrectedDragCoefficient = AtmCorrect(values[0], values[8], values[9], values[10], values[11]);
-
 			float zeroAngle = ZeroAngle(1, values[0], values[1], values[2], values[6], values[7]);
-
 			float solution[10];
 			int maxRange = SolveNext(1, CorrectedDragCoefficient, values[1], values[2], values[3], zeroAngle, values[4], values[5], solution);			
 
@@ -131,33 +151,32 @@ void handleButtonPress(char button) {
 				float moa = GetMOA(solution, i);
 				float windage = GetWindage(solution, i);
 				float windageMOA = GetWindageMOA(solution, i);
-
-				// Convert the results to strings
-				char resultStr1[17], resultStr2[17], resultStr3[17];
-				sprintf(resultStr1, "Range: %d Path: %.2f", i, path);
-				sprintf(resultStr2, "MOA: %.2f Wind: %.2f", moa, windage);
-				sprintf(resultStr3, "Windage MOA: %.2f", windageMOA);
+				
+				sprintf(resultStr, "Range: %d Path: %.2f", i, path);
+				sprintf(resultStr, "MOA: %.2f Wind: %.2f", moa, windage);
+				sprintf(resultStr, "Windage MOA: %.2f", windageMOA);
 
 				// Display the first screen
 				LCD_Command(0x01); // Clear the display
-				LCD_String(resultStr1);
+				LCD_String(resultStr);
 
 				// Wait for a button press before displaying the next screen
 				while (!buttonPressed());
 
 				// Display the second screen
 				LCD_Command(0x01); // Clear the display
-				LCD_String(resultStr2);
+				LCD_String(resultStr);
 
 				// Wait for a button press before displaying the next screen
 				while (!buttonPressed());
 
 				// Display the third screen
 				LCD_Command(0x01); // Clear the display
-				LCD_String(resultStr3);
+				LCD_String(resultStr);
 
 				// Wait for a button press before displaying the next range
 				while (!buttonPressed());
+				
 			}
 		}
 	}
